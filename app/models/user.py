@@ -3,7 +3,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Boolean, DateTime, func
 from datetime import datetime
 
-from app.models.organization import User_Organization
 from .base import BaseModel
 
 class User(BaseModel):
@@ -18,4 +17,4 @@ class User(BaseModel):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
     
-    organizations: Mapped[List["User_Organization"]] = relationship(back_populates="user")
+    organizations: Mapped[List["User_Organization"]] = relationship("User_Organization", back_populates="user")

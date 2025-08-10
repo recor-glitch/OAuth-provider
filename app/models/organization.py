@@ -5,7 +5,6 @@ from sqlalchemy import ForeignKey, text, Integer, String, Boolean, DateTime
 from sqlalchemy.sql import func
 from datetime import datetime
 
-from app.models.user import User
 from .base import BaseModel
 from enum import Enum
 
@@ -22,7 +21,7 @@ class Organization(BaseModel):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     settings: Mapped[dict] = mapped_column(JSONB(none_as_null=True), server_default=text("'{}'::jsonb"))
 
-    users: Mapped[List["User_Organization"]] = relationship(back_populates="organization")
+    users: Mapped[List["User_Organization"]] = relationship("User_Organization", back_populates="organization")
 
 
 class Role_enum(Enum):
@@ -40,5 +39,5 @@ class User_Organization(BaseModel):
     invited_by: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
     role: Mapped[Role_enum] = mapped_column(ENUM(Role_enum, name="organization_user_role", create_type=False), default=Role_enum.MEMBER)
 
-    user: Mapped['User'] = mapped_column(relationship(back_populates="organizations"))
-    organization: Mapped['Organization'] = mapped_column(relationship(back_populates="users"))
+    user: Mapped["User"] = relationship("User", back_populates="organizations")
+    organization: Mapped["Organization"] = relationship("Organization", back_populates="users")
