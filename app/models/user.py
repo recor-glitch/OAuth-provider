@@ -3,6 +3,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Boolean, DateTime, func
 from datetime import datetime
 
+from app.models.organization import User_Organization
+
 from .base import BaseModel
 
 class User(BaseModel):
@@ -10,7 +12,7 @@ class User(BaseModel):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(String(50), unique=True, index=True)
-    password_hash: Mapped[str]
+    password_hash: Mapped[str] = mapped_column(String)
     first_name: Mapped[str] = mapped_column(String(50))
     last_name: Mapped[str] = mapped_column(String(50))
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
