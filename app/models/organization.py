@@ -14,7 +14,6 @@ class Organization(BaseModel):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
-    hash_password: Mapped[str] = mapped_column(String)
     name: Mapped[str] = mapped_column(String(50))
     description: Mapped[str] = mapped_column(String(100))
     slug: Mapped[str] = mapped_column(String, unique=True)
