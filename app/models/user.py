@@ -19,4 +19,4 @@ class User(BaseModel):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
     
-    organizations: Mapped[List["User_Organization"]] = relationship("User_Organization", back_populates="user")
+    organizations: Mapped[List["User_Organization"]] = relationship("User_Organization", foreign_keys=[User_Organization.user_id], back_populates="user")

@@ -39,5 +39,6 @@ class User_Organization(BaseModel):
     invited_by: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
     role: Mapped[Role_enum] = mapped_column(ENUM(Role_enum, name="organization_user_role", create_type=False), default=Role_enum.MEMBER)
 
-    user: Mapped["User"] = relationship("User", back_populates="organizations")
-    organization: Mapped["Organization"] = relationship("Organization", back_populates="users")
+    user: Mapped["User"] = relationship("User", foreign_keys=[user_id], back_populates="organizations")
+    organization: Mapped["Organization"] = relationship("Organization", foreign_keys=[organization_id], back_populates="users")
+    invited_by_user: Mapped["User"] = relationship("User", foreign_keys=[invited_by])

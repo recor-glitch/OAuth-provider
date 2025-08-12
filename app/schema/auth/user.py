@@ -4,16 +4,18 @@ from datetime import datetime
 
 
 class UserBase(BaseModel):
-    email: str = Field()
-    password: str
+    email: str = Field(pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
     first_name: str
     last_name: str
 
 class UserCreate(UserBase):
     password: str
 
-class UserPublic(UserBase):
+class UserPublic(BaseModel):
     id: int
+    email: str
+    first_name: str
+    last_name: str
     created_at: datetime
     updated_at: datetime
 
