@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel, Field
 from datetime import datetime
 
@@ -17,8 +18,8 @@ class UserPublic(UserBase):
     updated_at: datetime
 
 class UserUpdate(BaseModel):
-    email: str | None = None
-    password: str | None = None
-    first_name: str | None = None
-    last_name: str | None = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
 

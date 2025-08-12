@@ -4,9 +4,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/oauth?sslmode=disable
+      - DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/oauth
+      - DATABASE_SYNC_URL=postgresql+psycopg2://user:password@postgres:5432/oauth
       - JWT_SECRET=your_jwt_secret
     depends_on:
       - postgres

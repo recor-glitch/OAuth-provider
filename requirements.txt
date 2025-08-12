@@ -3,5 +3,8 @@ sqlalchemy
 alembic
 psycopg2-binary
 python-dotenv
+pydantic_settings
 uvicorn
+passlib
+asyncpg
 passlib

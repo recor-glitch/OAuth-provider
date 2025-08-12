@@ -12,8 +12,8 @@ router = APIRouter()
 @router.post("/")
 async def create_user(user: UserCreate, db: Annotated[AsyncSession, Depends(get_db)]):
     auth = Auth_Service(db=db)
-    user = auth.create_user(user=user)
+    user = await auth.create_user(user=user)
 
     if (user):
-        return JSONResponse({"success": True, "data": user.model_dump_json()})
+        return JSONResponse({"success": True, "data": user})
     return JSONResponse({"success": False, "data": "Something went wrong, please try again."})

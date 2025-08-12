@@ -17,8 +17,16 @@ class Auth_Service:
         try:
             password_hash = get_password_hash(user.password)
 
-            self.db.add(User(**user.model_dump(exclude_unset=True), password_hash=password_hash))
+            user_model = User(
+                email=user.email,
+                first_name=user.first_name,
+                last_name=user.last_name,
+                password=password_hash
+            )
+
+            self.db.add(user_model)
             self.db.commit()
             return user.model_dump(exclude_unset=True)
-        except:
+        except Exception as e:
+            print(f"My error: {e}")
             raise HTTPException(status_code=500, detail="unable to create the user, please try again")
