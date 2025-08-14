@@ -3,22 +3,29 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
-class Create_Organization(BaseModel):
+class OrganizationBase(BaseModel):
     name: str
     description: str
     slug: str
     domain: str
-    settings: Optional[dict]
 
 
-class Organization_User_Response(BaseModel):
+class OrganizationCreate(OrganizationBase):
+    settings: Optional[dict] = None
+
+class OrganizationPublic(OrganizationBase):
     id: int
+    is_active: bool
+    settings: dict
     created_at: datetime
     updated_at: datetime
-    name: str
-    description: str
-    slug: str
-    domain: str
-    is_active: bool
-    settings: dict | None
     users: list
+
+class OrganizationUpdate(OrganizationBase):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    slug: Optional[str] = None
+    domain: Optional[str] = None
+    settings: Optional[dict] = None
+    is_active: Optional[bool] = None
+    users: Optional[list] = None

@@ -11,11 +11,8 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
-class UserPublic(BaseModel):
+class UserPublic(UserBase):
     id: int
-    email: str
-    first_name: str
-    last_name: str
     created_at: datetime
     updated_at: datetime
 
